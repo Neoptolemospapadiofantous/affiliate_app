@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -68,6 +69,16 @@ const newPairs = [
 export function Sidebar() {
   return (
     <aside className="w-full lg:w-64 space-y-2">
+      {/* Logo */}
+      <Link href="/app" className="block px-2 py-3">
+        <div className="font-bold text-base bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
+          CryptoTrack
+        </div>
+        <p className="text-[10px] text-muted-foreground mt-0.5">
+          Affiliate Trading Platform
+        </p>
+      </Link>
+
       {/* Trending Pairs */}
       <Card className="p-2">
         <div className="flex items-center gap-1.5 mb-2">
