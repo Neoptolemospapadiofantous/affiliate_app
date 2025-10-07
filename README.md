@@ -1,37 +1,188 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# CryptoTrack - Crypto Affiliate Trading Platform
+
+A professional cryptocurrency tracking and trading platform built with Next.js 15, featuring real-time price data, multi-chain support, and TradingView integration.
+
+## Features
+
+- 🌐 **Multi-Chain Support** - Track pairs across Ethereum, BSC, Polygon, Arbitrum, Base, Solana, and Avalanche
+- 📊 **Real-Time Data** - Live price updates, volume tracking, and market insights
+- 📱 **Mobile-First Design** - Fully responsive interface optimized for mobile devices
+- 🎨 **Dark/Light Theme** - Beautiful UI with dark mode as default
+- 🔍 **Advanced Filtering** - Sort and filter pairs by price, volume, liquidity, and more
+- ⭐ **Watchlist** - Save your favorite pairs for quick access
+- 📈 **TradingView Charts** - Professional charting with TradingView widgets
+- 🔗 **Wallet Integration** - Connect wallet support (MetaMask, WalletConnect)
+
+## Tech Stack
+
+- **Framework**: Next.js 15.5.4 with React 19
+- **Styling**: Tailwind CSS v4
+- **UI Components**: shadcn/ui
+- **Theme**: next-themes
+- **Icons**: Lucide React
+- **Database**: Amazon RDS (PostgreSQL)
+- **Hosting**: Vercel
+
+## Project Structure
+
+```
+src/
+├── app/                    # Next.js App Router
+│   ├── api/               # API routes
+│   │   ├── pairs/         # Pairs data endpoint
+│   │   └── trending/      # Trending pairs endpoint
+│   ├── app/               # Main application
+│   │   └── page.tsx       # App page with all components
+│   ├── layout.tsx         # Root layout
+│   ├── page.tsx           # Landing page
+│   └── globals.css        # Global styles
+├── components/            # React components
+│   ├── ui/               # shadcn/ui components
+│   ├── header.tsx        # Header with chain selector
+│   ├── footer.tsx        # Footer component
+│   ├── sidebar.tsx       # Sidebar with trending pairs
+│   ├── banner.tsx        # Banner with stats
+│   ├── pairs-table.tsx   # Main pairs table
+│   ├── tradingview-widget.tsx  # TradingView integration
+│   └── theme-provider.tsx      # Theme provider
+├── hooks/                # Custom React hooks
+│   └── use-chain.tsx     # Chain context and hook
+├── types/                # TypeScript type definitions
+│   └── index.ts          # Main types (Chain, Pair, Token, etc.)
+├── config/               # Configuration files
+│   └── chains.ts         # Supported chains configuration
+└── lib/                  # Utilities
+    └── utils.ts          # Utility functions
+```
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
+- Node.js 18+
+- pnpm (recommended) or npm
+
+### Installation
+
+1. Clone the repository:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <your-repo-url>
+cd affiliate-app
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
+```bash
+pnpm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Create environment variables:
+```bash
+cp .env.example .env.local
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Run the development server:
+```bash
+pnpm dev
+```
 
-## Learn More
+5. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-To learn more about Next.js, take a look at the following resources:
+## Building for Production
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+pnpm build
+pnpm start
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Deployment
 
-## Deploy on Vercel
+### Vercel (Recommended)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Push your code to GitHub
+2. Import the project in Vercel
+3. Configure environment variables
+4. Deploy!
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# affiliate_app
+### Environment Variables
+
+See `.env.example` for required environment variables.
+
+## API Integration
+
+The app currently uses mock data. To integrate real data:
+
+1. **DexScreener API**: Update `src/app/api/pairs/route.ts`
+2. **CoinGecko API**: Add endpoints for additional market data
+3. **Custom Backend**: Connect to your Amazon RDS database
+
+Example API integration:
+
+```typescript
+// src/app/api/pairs/route.ts
+const response = await fetch(
+  `https://api.dexscreener.com/latest/dex/pairs/${chainId}`
+);
+const data = await response.json();
+```
+
+## Database Setup (Amazon RDS)
+
+1. Create a PostgreSQL instance on Amazon RDS
+2. Update `DATABASE_URL` in `.env.local`
+3. Run migrations (if using Prisma or similar ORM)
+
+## Customization
+
+### Adding New Chains
+
+Edit `src/config/chains.ts`:
+
+```typescript
+export const SUPPORTED_CHAINS: Chain[] = [
+  {
+    id: "your-chain",
+    name: "Your Chain",
+    icon: "🔗",
+    rpcUrl: "https://rpc.yourchain.com",
+    explorerUrl: "https://explorer.yourchain.com",
+    nativeCurrency: {
+      name: "Token",
+      symbol: "TKN",
+      decimals: 18,
+    },
+  },
+];
+```
+
+### Styling
+
+- Modify theme colors in `src/app/globals.css`
+- Update Tailwind config in `tailwind.config.ts`
+- Customize components in `src/components/`
+
+## Features Roadmap
+
+- [ ] Real-time price updates via WebSocket
+- [ ] User authentication and profiles
+- [ ] Portfolio tracking
+- [ ] Price alerts
+- [ ] Advanced charting tools
+- [ ] Social trading features
+- [ ] Affiliate tracking system
+- [ ] API access for developers
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+MIT License - feel free to use this project for your own purposes.
+
+## Support
+
+For issues and questions, please open an issue on GitHub.
+
+---
+
+Built with ❤️ for the crypto community
