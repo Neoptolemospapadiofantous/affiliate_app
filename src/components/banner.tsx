@@ -17,7 +17,7 @@ export function Banner() {
   };
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-2">
       {/* Chain Info Banner */}
       <Card className="p-4 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 border-none">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
@@ -38,7 +38,7 @@ export function Banner() {
       </Card>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
         <Card className="p-3">
           <div className="flex items-start justify-between">
             <div>

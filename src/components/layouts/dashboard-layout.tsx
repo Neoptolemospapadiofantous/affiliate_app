@@ -33,13 +33,13 @@ export function DashboardLayout({ children, showSidebar = true }: DashboardLayou
             {/* Sidebar */}
             <aside
               className={`
-                fixed lg:sticky top-16 left-0 z-50 h-[calc(100vh-4rem)]
-                w-80 bg-background border-r transition-transform duration-300
+                fixed lg:sticky top-14 left-0 z-50 h-[calc(100vh-3.5rem)]
+                w-64 bg-background border-r transition-transform duration-300
                 lg:translate-x-0
                 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}
               `}
             >
-              <div className="h-full overflow-y-auto p-4">
+              <div className="h-full overflow-y-auto p-2">
                 <Sidebar />
               </div>
             </aside>
@@ -58,7 +58,7 @@ export function DashboardLayout({ children, showSidebar = true }: DashboardLayou
 
         {/* Main Content */}
         <main className="flex-1 overflow-x-hidden">
-          <div className="container mx-auto px-3 py-4">
+          <div className="px-2 py-2">
             {children}
           </div>
         </main>

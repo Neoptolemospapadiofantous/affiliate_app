@@ -10,7 +10,7 @@ export default function AppPage() {
   return (
     <ChainProvider>
       <DashboardLayout>
-        <div className="space-y-4">
+        <div className="space-y-2">
           {/* Market Overview */}
           <MarketOverview />
 
