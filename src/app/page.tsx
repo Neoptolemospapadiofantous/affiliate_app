@@ -1,12 +1,13 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, TrendingUp, Zap, Shield } from "lucide-react";
+import { GuestLayout } from "@/components/layouts/guest-layout";
 
 export default function Home() {
   return (
-    <div className="min-h-screen flex flex-col">
+    <GuestLayout>
       {/* Hero Section */}
-      <main className="flex-1 flex flex-col items-center justify-center px-4 py-20 text-center">
+      <div className="flex-1 flex flex-col items-center justify-center px-4 py-20 text-center">
         <div className="max-w-4xl mx-auto space-y-8">
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight">
             Trade Crypto Across
@@ -61,14 +62,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </main>
-
-      {/* Footer */}
-      <footer className="border-t py-8">
-        <div className="container mx-auto px-4 text-center text-sm text-muted-foreground">
-          <p>&copy; 2025 CryptoTrack. Built for traders, by traders.</p>
-        </div>
-      </footer>
-    </div>
+      </div>
+    </GuestLayout>
   );
 }
