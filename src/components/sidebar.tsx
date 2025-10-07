@@ -68,7 +68,7 @@ const newPairs = [
 
 export function Sidebar() {
   return (
-    <aside className="w-full lg:w-64 space-y-2">
+    <div className="w-full space-y-2">
       {/* Logo */}
       <Link href="/app" className="block px-2 py-3">
         <div className="font-bold text-base bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
@@ -161,6 +161,6 @@ export function Sidebar() {
           ))}
         </div>
       </Card>
-    </aside>
+    </div>
   );
 }
