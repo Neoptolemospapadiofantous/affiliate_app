@@ -37,15 +37,15 @@ const marketStats = [
 
 export function MarketOverview() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
       {marketStats.map((stat, index) => {
         const Icon = stat.icon;
         return (
-          <Card key={index} className="p-4">
+          <Card key={index} className="p-3">
             <div className="flex items-start justify-between">
               <div className="flex-1">
-                <p className="text-sm text-muted-foreground mb-1">{stat.label}</p>
-                <p className="text-2xl font-bold">{stat.value}</p>
+                <p className="text-xs text-muted-foreground mb-0.5">{stat.label}</p>
+                <p className="text-xl font-bold">{stat.value}</p>
                 <Badge
                   variant={stat.positive ? "default" : "destructive"}
                   className={`mt-2 ${
@@ -58,12 +58,12 @@ export function MarketOverview() {
                 </Badge>
               </div>
               <div
-                className={`p-2 rounded-lg ${
+                className={`p-1.5 rounded-lg ${
                   stat.positive ? "bg-green-500/10" : "bg-red-500/10"
                 }`}
               >
                 <Icon
-                  className={`h-5 w-5 ${
+                  className={`h-4 w-4 ${
                     stat.positive ? "text-green-500" : "text-red-500"
                   }`}
                 />

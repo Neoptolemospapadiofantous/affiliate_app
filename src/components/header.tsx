@@ -31,11 +31,11 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container mx-auto px-4">
-        <div className="flex h-16 items-center justify-between">
+      <div className="container mx-auto px-3">
+        <div className="flex h-14 items-center justify-between">
           {/* Logo */}
           <Link href="/app" className="flex items-center space-x-2">
-            <div className="font-bold text-xl bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
+            <div className="font-bold text-lg bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
               CryptoTrack
             </div>
           </Link>
@@ -45,7 +45,7 @@ export function Header() {
             {/* Chain Selector */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="outline" className="w-[140px] justify-between">
+                <Button variant="outline" size="sm" className="w-[120px] justify-between text-xs">
                   <span className="flex items-center gap-2">
                     <span>{selectedChain.icon}</span>
                     <span>{selectedChain.name}</span>
@@ -70,7 +70,8 @@ export function Header() {
             {/* Search Bar */}
             <Button
               variant="outline"
-              className="flex-1 justify-start text-muted-foreground"
+              size="sm"
+              className="flex-1 justify-start text-muted-foreground text-xs"
               onClick={() => setSearchOpen(true)}
             >
               <Search className="h-4 w-4 mr-2" />

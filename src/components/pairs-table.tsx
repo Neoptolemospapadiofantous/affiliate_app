@@ -111,9 +111,9 @@ export function PairsTable() {
 
   return (
     <Card className="w-full">
-      <div className="p-4 border-b">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-semibold">
+      <div className="p-3 border-b">
+        <div className="flex items-center justify-between mb-3">
+          <h2 className="text-lg font-semibold">
             {selectedChain.name} Pairs
           </h2>
           <div className="flex items-center gap-2">

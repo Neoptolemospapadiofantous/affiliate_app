@@ -3,6 +3,18 @@
 @tailwind utilities;
 
 @layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    font-size: 14px;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
   :root {
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
@@ -59,3 +71,25 @@
   }
 }
 
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Compact spacing overrides */
+.compact {
+  @apply text-sm;
+}
+
+.compact h1 {
+  @apply text-2xl;
+}
+
+.compact h2 {
+  @apply text-xl;
+}
+
+.compact h3 {
+  @apply text-lg;
+}
