@@ -21,8 +21,8 @@ export function GuestLayout({ children }: GuestLayoutProps) {
           <div className="flex h-16 items-center justify-between">
             {/* Logo */}
             <Link href="/" className="flex items-center space-x-2">
-              <div className="font-bold text-xl bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
-                CryptoTrack
+              <div className="font-bold text-xl bg-gradient-to-r from-cyan-400 to-cyan-300 bg-clip-text text-transparent">
+                CryptoTrack ⚡
               </div>
             </Link>
 
@@ -58,8 +58,8 @@ export function GuestLayout({ children }: GuestLayoutProps) {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {/* Brand */}
             <div className="space-y-3">
-              <h3 className="font-bold text-lg bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
-                CryptoTrack
+              <h3 className="font-bold text-lg bg-gradient-to-r from-cyan-400 to-cyan-300 bg-clip-text text-transparent">
+                CryptoTrack ⚡
               </h3>
               <p className="text-sm text-muted-foreground">
                 Your ultimate crypto trading companion across multiple blockchains.
