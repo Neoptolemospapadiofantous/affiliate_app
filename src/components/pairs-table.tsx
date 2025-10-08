@@ -254,7 +254,7 @@ export function PairsTable() {
   };
 
   return (
-    <Card className="w-full border-cyan-500/20 bg-black/80 overflow-hidden">
+    <Card className="w-full border-cyan-500/20 bg-black/80 overflow-x-hidden">
       {/* Header - Collapsible */}
       <div
         className="p-3 border-b border-cyan-500/20 cursor-pointer hover:bg-cyan-500/5 transition-colors"
@@ -282,10 +282,11 @@ export function PairsTable() {
         </div>
       </div>
 
-      {/* Table Content - Scrollable */}
+      {/* Table Content - Only Table Scrolls Horizontally */}
       {isTableVisible && (
-        <div className="overflow-x-auto overflow-y-auto max-h-[600px]" style={{ WebkitOverflowScrolling: 'touch' }}>
-          <table className="w-full min-w-max">
+        <div className="w-full">
+          <div className="overflow-x-auto overflow-y-auto max-h-[600px]" style={{ WebkitOverflowScrolling: 'touch' }}>
+            <table className="w-full min-w-max">
             {/* Table Header - Sticky */}
             <thead className="sticky top-0 z-10 border-b border-cyan-500/20 bg-black/95">
                   <tr>
@@ -405,7 +406,8 @@ export function PairsTable() {
                   </tr>
                 ))}
           </tbody>
-          </table>
+            </table>
+          </div>
         </div>
       )}
     </Card>
