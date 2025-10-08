@@ -259,13 +259,13 @@ export function PairsTable() {
   };
 
   return (
-    <Card className="w-full border-cyan-500/20 bg-black/80">
+    <Card className="w-full border-cyan-500/20 bg-black/80 overflow-hidden">
       {/* Header - Collapsible */}
       <div
         className="p-3 border-b border-cyan-500/20 cursor-pointer hover:bg-cyan-500/5 transition-colors"
         onClick={() => setIsTableVisible(!isTableVisible)}
       >
-        <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <h2 className="text-lg font-bold text-white">
               {selectedChain.name} Pairs 📊
@@ -287,181 +287,131 @@ export function PairsTable() {
         </div>
       </div>
 
-      {/* Table Content - Collapsible */}
+      {/* Table Content - Horizontal Scroll */}
       {isTableVisible && (
         <>
-          {/* Pairs List */}
-          <div className="divide-y divide-cyan-500/10">
-            {pairs.map((pair) => (
-              <div
-                key={pair.id}
-                className="w-full p-3 hover:bg-cyan-500/5 transition-colors"
-              >
-                {/* Desktop & Tablet Layout */}
-                <div className="hidden md:grid md:grid-cols-7 gap-3 items-center">
-                  {/* Pair Name */}
-                  <div className="flex items-center gap-2">
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="h-7 w-7 flex-shrink-0"
-                      onClick={() => toggleWatchlist(pair.id)}
-                    >
-                      <Star
-                        className={`h-3.5 w-3.5 ${
-                          watchlist.has(pair.id)
-                            ? "fill-yellow-500 text-yellow-500"
-                            : "text-gray-400"
-                        }`}
-                      />
-                    </Button>
-                    <div>
-                      <p className="font-bold text-white text-sm">{pair.name}</p>
-                      <p className="text-xs text-gray-500">{pair.launchDate}</p>
-                    </div>
-                  </div>
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-max">
+              {/* Table Header */}
+              <thead className="border-b border-cyan-500/20 bg-cyan-500/5">
+                <tr>
+                  <th className="px-3 py-2 text-left text-xs font-semibold text-gray-400 whitespace-nowrap">★</th>
+                  <th className="px-3 py-2 text-left text-xs font-semibold text-gray-400 whitespace-nowrap">Pair</th>
+                  <th className="px-3 py-2 text-left text-xs font-semibold text-gray-400 whitespace-nowrap">Launch Date</th>
+                  <th className="px-3 py-2 text-right text-xs font-semibold text-gray-400 whitespace-nowrap">Price</th>
+                  <th className="px-3 py-2 text-center text-xs font-semibold text-gray-400 whitespace-nowrap">24h %</th>
+                  <th className="px-3 py-2 text-right text-xs font-semibold text-gray-400 whitespace-nowrap">Market Cap</th>
+                  <th className="px-3 py-2 text-right text-xs font-semibold text-gray-400 whitespace-nowrap">Volume 24h</th>
+                  <th className="px-3 py-2 text-right text-xs font-semibold text-gray-400 whitespace-nowrap">Liquidity</th>
+                  <th className="px-3 py-2 text-center text-xs font-semibold text-gray-400 whitespace-nowrap">Txns 24h</th>
+                  <th className="px-3 py-2 text-center text-xs font-semibold text-gray-400 whitespace-nowrap">Actions</th>
+                </tr>
+              </thead>
 
-                  {/* Price */}
-                  <div>
-                    <p className="text-xs text-gray-400">Price</p>
-                    <p className="font-mono text-white font-semibold text-sm">{pair.price}</p>
-                  </div>
-
-                  {/* 24h Change */}
-                  <div>
-                    <p className="text-xs text-gray-400 mb-1">24h Change</p>
-                    <Badge
-                      variant={pair.priceChange24h > 0 ? "default" : "destructive"}
-                      className={`${
-                        pair.priceChange24h > 0
-                          ? "bg-emerald-500/20 text-emerald-400 border-emerald-500/30 font-bold"
-                          : "bg-red-500/20 text-red-400 border-red-500/30 font-bold"
-                      }`}
-                    >
-                      {pair.priceChange24h > 0 ? "+" : ""}
-                      {pair.priceChange24h}%
-                    </Badge>
-                  </div>
-
-                  {/* Market Cap */}
-                  <div>
-                    <p className="text-xs text-gray-400">Market Cap</p>
-                    <p className="font-mono text-white font-semibold text-sm">{pair.marketCap}</p>
-                  </div>
-
-                  {/* Volume */}
-                  <div>
-                    <p className="text-xs text-gray-400">Volume 24h</p>
-                    <p className="font-mono text-white font-semibold text-sm">{pair.volume24h}</p>
-                  </div>
-
-                  {/* Liquidity */}
-                  <div>
-                    <p className="text-xs text-gray-400">Liquidity</p>
-                    <p className="font-mono text-white font-semibold text-sm">{pair.liquidity}</p>
-                  </div>
-
-                  {/* Actions */}
-                  <div className="flex gap-1">
-                    <Link href={`/token/${pair.id}`}>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        className="border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/10 h-7 px-2"
-                      >
-                        <ExternalLink className="h-3 w-3" />
-                      </Button>
-                    </Link>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/10 h-7 px-3 text-xs"
-                    >
-                      Trade
-                    </Button>
-                  </div>
-                </div>
-
-                {/* Mobile Layout */}
-                <div className="md:hidden space-y-3">
-                  {/* Header Row */}
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
+              {/* Table Body */}
+              <tbody className="divide-y divide-cyan-500/10">
+                {pairs.map((pair) => (
+                  <tr
+                    key={pair.id}
+                    className="hover:bg-cyan-500/5 transition-colors"
+                  >
+                    {/* Watchlist Star */}
+                    <td className="px-3 py-1.5">
                       <Button
                         variant="ghost"
                         size="icon"
-                        className="h-7 w-7"
+                        className="h-6 w-6"
                         onClick={() => toggleWatchlist(pair.id)}
                       >
                         <Star
-                          className={`h-3.5 w-3.5 ${
+                          className={`h-3 w-3 ${
                             watchlist.has(pair.id)
                               ? "fill-yellow-500 text-yellow-500"
                               : "text-gray-400"
                           }`}
                         />
                       </Button>
-                      <div>
-                        <p className="font-bold text-white text-sm">{pair.name}</p>
-                        <p className="text-xs text-gray-500">{pair.launchDate}</p>
-                      </div>
-                    </div>
-                    <Badge
-                      variant={pair.priceChange24h > 0 ? "default" : "destructive"}
-                      className={`${
-                        pair.priceChange24h > 0
-                          ? "bg-emerald-500/20 text-emerald-400 border-emerald-500/30 font-bold"
-                          : "bg-red-500/20 text-red-400 border-red-500/30 font-bold"
-                      }`}
-                    >
-                      {pair.priceChange24h > 0 ? "+" : ""}
-                      {pair.priceChange24h}%
-                    </Badge>
-                  </div>
+                    </td>
 
-                  {/* Stats Grid */}
-                  <div className="grid grid-cols-2 gap-2 text-xs">
-                    <div>
-                      <p className="text-gray-400">Price</p>
-                      <p className="font-mono text-white font-semibold">{pair.price}</p>
-                    </div>
-                    <div>
-                      <p className="text-gray-400">Market Cap</p>
-                      <p className="font-mono text-white font-semibold">{pair.marketCap}</p>
-                    </div>
-                    <div>
-                      <p className="text-gray-400">Volume 24h</p>
-                      <p className="font-mono text-white font-semibold">{pair.volume24h}</p>
-                    </div>
-                    <div>
-                      <p className="text-gray-400">Liquidity</p>
-                      <p className="font-mono text-white font-semibold">{pair.liquidity}</p>
-                    </div>
-                  </div>
+                    {/* Pair Name */}
+                    <td className="px-3 py-1.5">
+                      <p className="font-bold text-white text-xs whitespace-nowrap">{pair.name}</p>
+                    </td>
 
-                  {/* Actions */}
-                  <div className="flex gap-2">
-                    <Link href={`/token/${pair.id}`} className="flex-1">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        className="w-full border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/10"
+                    {/* Launch Date */}
+                    <td className="px-3 py-1.5">
+                      <p className="text-xs text-gray-400 whitespace-nowrap">{pair.launchDate}</p>
+                    </td>
+
+                    {/* Price */}
+                    <td className="px-3 py-1.5 text-right">
+                      <p className="font-mono text-white font-semibold text-xs whitespace-nowrap">{pair.price}</p>
+                    </td>
+
+                    {/* 24h Change */}
+                    <td className="px-3 py-1.5 text-center">
+                      <Badge
+                        variant={pair.priceChange24h > 0 ? "default" : "destructive"}
+                        className={`text-[10px] px-1.5 py-0 ${
+                          pair.priceChange24h > 0
+                            ? "bg-emerald-500/20 text-emerald-400 border-emerald-500/30 font-bold"
+                            : "bg-red-500/20 text-red-400 border-red-500/30 font-bold"
+                        }`}
                       >
-                        <ExternalLink className="h-3 w-3 mr-1" />
-                        Details
-                      </Button>
-                    </Link>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="flex-1 border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/10"
-                    >
-                      Trade
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            ))}
+                        {pair.priceChange24h > 0 ? "+" : ""}
+                        {pair.priceChange24h}%
+                      </Badge>
+                    </td>
+
+                    {/* Market Cap */}
+                    <td className="px-3 py-1.5 text-right">
+                      <p className="font-mono text-white font-semibold text-xs whitespace-nowrap">{pair.marketCap}</p>
+                    </td>
+
+                    {/* Volume 24h */}
+                    <td className="px-3 py-1.5 text-right">
+                      <p className="font-mono text-white font-semibold text-xs whitespace-nowrap">{pair.volume24h}</p>
+                    </td>
+
+                    {/* Liquidity */}
+                    <td className="px-3 py-1.5 text-right">
+                      <p className="font-mono text-white font-semibold text-xs whitespace-nowrap">{pair.liquidity}</p>
+                    </td>
+
+                    {/* Transactions */}
+                    <td className="px-3 py-1.5 text-center">
+                      <div className="flex items-center justify-center gap-1 text-[10px] whitespace-nowrap">
+                        <span className="text-emerald-400 font-bold">{pair.txns24h.buys}B</span>
+                        <span className="text-gray-500">/</span>
+                        <span className="text-red-400 font-bold">{pair.txns24h.sells}S</span>
+                      </div>
+                    </td>
+
+                    {/* Actions */}
+                    <td className="px-3 py-1.5">
+                      <div className="flex gap-1 justify-center whitespace-nowrap">
+                        <Link href={`/token/${pair.id}`}>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/10 h-6 w-6 p-0"
+                          >
+                            <ExternalLink className="h-3 w-3" />
+                          </Button>
+                        </Link>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/10 h-6 px-2 text-[10px]"
+                        >
+                          Trade
+                        </Button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
 
           {/* Load More Button */}
