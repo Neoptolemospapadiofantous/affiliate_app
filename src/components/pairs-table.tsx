@@ -284,7 +284,7 @@ export function PairsTable() {
 
       {/* Table Content - Scrollable */}
       {isTableVisible && (
-        <div className="overflow-x-auto overflow-y-auto max-h-[600px]">
+        <div className="overflow-x-auto overflow-y-auto max-h-[600px]" style={{ WebkitOverflowScrolling: 'touch' }}>
           <table className="w-full min-w-max">
             {/* Table Header - Sticky */}
             <thead className="sticky top-0 z-10 border-b border-cyan-500/20 bg-black/95">
