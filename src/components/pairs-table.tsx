@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ArrowUpDown, ExternalLink, Star, ChevronDown, TrendingUp, Activity, DollarSign } from "lucide-react";
+import { ExternalLink, Star, ChevronDown } from "lucide-react";
 import { useChain } from "@/hooks/use-chain";
 import { PairFilters } from "@/components/filters/pair-filters";
 import Link from "next/link";
@@ -20,6 +20,7 @@ const allPairs = [
     liquidity: "$5.3M",
     txns24h: { buys: 234, sells: 189 },
     marketCap: "$12.4M",
+    launchDate: "2023-04-15",
   },
   {
     id: "2",
@@ -30,6 +31,7 @@ const allPairs = [
     liquidity: "$12.8M",
     txns24h: { buys: 456, sells: 321 },
     marketCap: "$28.9M",
+    launchDate: "2023-03-22",
   },
   {
     id: "3",
@@ -40,6 +42,7 @@ const allPairs = [
     liquidity: "$8.2M",
     txns24h: { buys: 189, sells: 234 },
     marketCap: "$18.7M",
+    launchDate: "2023-05-10",
   },
   {
     id: "4",
@@ -50,6 +53,7 @@ const allPairs = [
     liquidity: "$3.1M",
     txns24h: { buys: 123, sells: 98 },
     marketCap: "$9.2M",
+    launchDate: "2023-06-01",
   },
   {
     id: "5",
@@ -60,6 +64,7 @@ const allPairs = [
     liquidity: "$2.4M",
     txns24h: { buys: 78, sells: 92 },
     marketCap: "$6.8M",
+    launchDate: "2023-02-18",
   },
   {
     id: "6",
@@ -70,6 +75,7 @@ const allPairs = [
     liquidity: "$9.7M",
     txns24h: { buys: 567, sells: 432 },
     marketCap: "$34.2M",
+    launchDate: "2023-01-30",
   },
   {
     id: "7",
@@ -80,6 +86,7 @@ const allPairs = [
     liquidity: "$15.4M",
     txns24h: { buys: 345, sells: 278 },
     marketCap: "$45.6M",
+    launchDate: "2023-04-05",
   },
   {
     id: "8",
@@ -90,6 +97,7 @@ const allPairs = [
     liquidity: "$4.7M",
     txns24h: { buys: 156, sells: 189 },
     marketCap: "$8.3M",
+    launchDate: "2023-03-14",
   },
   {
     id: "9",
@@ -100,6 +108,7 @@ const allPairs = [
     liquidity: "$11.2M",
     txns24h: { buys: 89, sells: 67 },
     marketCap: "$25.8M",
+    launchDate: "2023-05-20",
   },
   {
     id: "10",
@@ -110,6 +119,7 @@ const allPairs = [
     liquidity: "$6.8M",
     txns24h: { buys: 234, sells: 267 },
     marketCap: "$14.2M",
+    launchDate: "2023-02-28",
   },
   {
     id: "11",
@@ -120,6 +130,7 @@ const allPairs = [
     liquidity: "$5.1M",
     txns24h: { buys: 178, sells: 145 },
     marketCap: "$9.7M",
+    launchDate: "2023-06-12",
   },
   {
     id: "12",
@@ -130,6 +141,7 @@ const allPairs = [
     liquidity: "$7.9M",
     txns24h: { buys: 123, sells: 156 },
     marketCap: "$19.4M",
+    launchDate: "2023-01-15",
   },
   {
     id: "13",
@@ -140,6 +152,7 @@ const allPairs = [
     liquidity: "$18.3M",
     txns24h: { buys: 67, sells: 45 },
     marketCap: "$38.9M",
+    launchDate: "2023-04-20",
   },
   {
     id: "14",
@@ -150,6 +163,7 @@ const allPairs = [
     liquidity: "$4.2M",
     txns24h: { buys: 189, sells: 212 },
     marketCap: "$7.8M",
+    launchDate: "2023-03-08",
   },
   {
     id: "15",
@@ -160,6 +174,7 @@ const allPairs = [
     liquidity: "$3.8M",
     txns24h: { buys: 145, sells: 123 },
     marketCap: "$6.5M",
+    launchDate: "2023-05-25",
   },
   {
     id: "16",
@@ -170,6 +185,7 @@ const allPairs = [
     liquidity: "$8.1M",
     txns24h: { buys: 267, sells: 234 },
     marketCap: "$16.3M",
+    launchDate: "2023-02-10",
   },
   {
     id: "17",
@@ -180,6 +196,7 @@ const allPairs = [
     liquidity: "$9.4M",
     txns24h: { buys: 198, sells: 245 },
     marketCap: "$12.7M",
+    launchDate: "2023-06-05",
   },
   {
     id: "18",
@@ -190,6 +207,7 @@ const allPairs = [
     liquidity: "$5.6M",
     txns24h: { buys: 134, sells: 98 },
     marketCap: "$11.2M",
+    launchDate: "2023-01-22",
   },
   {
     id: "19",
@@ -200,6 +218,7 @@ const allPairs = [
     liquidity: "$3.4M",
     txns24h: { buys: 87, sells: 112 },
     marketCap: "$5.9M",
+    launchDate: "2023-04-18",
   },
   {
     id: "20",
@@ -210,17 +229,16 @@ const allPairs = [
     liquidity: "$10.8M",
     txns24h: { buys: 456, sells: 378 },
     marketCap: "$23.5M",
+    launchDate: "2023-03-01",
   },
 ];
-
-type SortKey = "name" | "price" | "priceChange24h" | "volume24h" | "liquidity";
 
 const PAIRS_PER_PAGE = 10;
 
 export function PairsTable() {
   const { selectedChain } = useChain();
+  const [isTableVisible, setIsTableVisible] = useState(true);
   const [displayCount, setDisplayCount] = useState(PAIRS_PER_PAGE);
-  const [expandedRow, setExpandedRow] = useState<string | null>(null);
   const [watchlist, setWatchlist] = useState<Set<string>>(new Set());
 
   const pairs = allPairs.slice(0, displayCount);
@@ -228,10 +246,6 @@ export function PairsTable() {
 
   const loadMore = () => {
     setDisplayCount(prev => Math.min(prev + PAIRS_PER_PAGE, allPairs.length));
-  };
-
-  const toggleRow = (pairId: string) => {
-    setExpandedRow(expandedRow === pairId ? null : pairId);
   };
 
   const toggleWatchlist = (pairId: string) => {
@@ -246,157 +260,223 @@ export function PairsTable() {
 
   return (
     <Card className="w-full border-cyan-500/20 bg-black/80">
-      {/* Header */}
-      <div className="p-3 border-b border-cyan-500/20">
+      {/* Header - Collapsible */}
+      <div
+        className="p-3 border-b border-cyan-500/20 cursor-pointer hover:bg-cyan-500/5 transition-colors"
+        onClick={() => setIsTableVisible(!isTableVisible)}
+      >
         <div className="flex items-center justify-between mb-3">
-          <h2 className="text-lg font-bold text-white">
-            {selectedChain.name} Pairs 📊
-          </h2>
+          <div className="flex items-center gap-2">
+            <h2 className="text-lg font-bold text-white">
+              {selectedChain.name} Pairs 📊
+            </h2>
+            <ChevronDown
+              className={`h-5 w-5 text-cyan-400 transition-transform ${
+                isTableVisible ? "" : "-rotate-90"
+              }`}
+            />
+          </div>
           <div className="flex items-center gap-2">
             <Badge variant="outline" className="border-cyan-500/30 text-cyan-400 font-semibold">
-              Showing {pairs.length} of {allPairs.length}
+              {pairs.length} pairs
             </Badge>
-            <PairFilters />
+            <div onClick={(e) => e.stopPropagation()}>
+              <PairFilters />
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Expandable Rows - Full Width */}
-      <div className="divide-y divide-cyan-500/10">
-        {pairs.map((pair) => (
-          <div key={pair.id} className="w-full">
-            {/* Collapsed Row - Click to expand */}
-            <div
-              onClick={() => toggleRow(pair.id)}
-              className="w-full p-4 hover:bg-cyan-500/5 cursor-pointer transition-colors"
-            >
-              <div className="flex items-center justify-between gap-4">
-                {/* Left: Pair Name & Price */}
-                <div className="flex items-center gap-3 flex-1 min-w-0">
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="h-8 w-8 flex-shrink-0"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      toggleWatchlist(pair.id);
-                    }}
-                  >
-                    <Star
-                      className={`h-4 w-4 ${
-                        watchlist.has(pair.id)
-                          ? "fill-yellow-500 text-yellow-500"
-                          : "text-gray-400"
+      {/* Table Content - Collapsible */}
+      {isTableVisible && (
+        <>
+          {/* Pairs List */}
+          <div className="divide-y divide-cyan-500/10">
+            {pairs.map((pair) => (
+              <div
+                key={pair.id}
+                className="w-full p-3 hover:bg-cyan-500/5 transition-colors"
+              >
+                {/* Desktop & Tablet Layout */}
+                <div className="hidden md:grid md:grid-cols-7 gap-3 items-center">
+                  {/* Pair Name */}
+                  <div className="flex items-center gap-2">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-7 w-7 flex-shrink-0"
+                      onClick={() => toggleWatchlist(pair.id)}
+                    >
+                      <Star
+                        className={`h-3.5 w-3.5 ${
+                          watchlist.has(pair.id)
+                            ? "fill-yellow-500 text-yellow-500"
+                            : "text-gray-400"
+                        }`}
+                      />
+                    </Button>
+                    <div>
+                      <p className="font-bold text-white text-sm">{pair.name}</p>
+                      <p className="text-xs text-gray-500">{pair.launchDate}</p>
+                    </div>
+                  </div>
+
+                  {/* Price */}
+                  <div>
+                    <p className="text-xs text-gray-400">Price</p>
+                    <p className="font-mono text-white font-semibold text-sm">{pair.price}</p>
+                  </div>
+
+                  {/* 24h Change */}
+                  <div>
+                    <p className="text-xs text-gray-400 mb-1">24h Change</p>
+                    <Badge
+                      variant={pair.priceChange24h > 0 ? "default" : "destructive"}
+                      className={`${
+                        pair.priceChange24h > 0
+                          ? "bg-emerald-500/20 text-emerald-400 border-emerald-500/30 font-bold"
+                          : "bg-red-500/20 text-red-400 border-red-500/30 font-bold"
                       }`}
-                    />
-                  </Button>
-                  <div className="flex-1 min-w-0">
-                    <p className="font-bold text-white text-base truncate">{pair.name}</p>
-                    <p className="text-sm text-gray-400 font-mono">{pair.price}</p>
-                  </div>
-                </div>
-
-                {/* Center: 24h Change */}
-                <Badge
-                  variant={pair.priceChange24h > 0 ? "default" : "destructive"}
-                  className={`flex-shrink-0 ${
-                    pair.priceChange24h > 0
-                      ? "bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500/30 border-emerald-500/30 font-bold"
-                      : "bg-red-500/20 text-red-400 hover:bg-red-500/30 border-red-500/30 font-bold"
-                  }`}
-                >
-                  {pair.priceChange24h > 0 ? "+" : ""}
-                  {pair.priceChange24h}%
-                </Badge>
-
-                {/* Right: Expand Icon */}
-                <ChevronDown
-                  className={`h-5 w-5 text-cyan-400 transition-transform flex-shrink-0 ${
-                    expandedRow === pair.id ? "rotate-180" : ""
-                  }`}
-                />
-              </div>
-            </div>
-
-            {/* Expanded Details */}
-            {expandedRow === pair.id && (
-              <div className="w-full px-4 pb-4 bg-cyan-500/5 border-t border-cyan-500/10">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4">
-                  {/* Volume */}
-                  <div className="space-y-1">
-                    <div className="flex items-center gap-2">
-                      <Activity className="h-4 w-4 text-cyan-400" />
-                      <p className="text-xs text-gray-400">Volume 24h</p>
-                    </div>
-                    <p className="font-mono text-white font-semibold">{pair.volume24h}</p>
-                  </div>
-
-                  {/* Liquidity */}
-                  <div className="space-y-1">
-                    <div className="flex items-center gap-2">
-                      <DollarSign className="h-4 w-4 text-cyan-400" />
-                      <p className="text-xs text-gray-400">Liquidity</p>
-                    </div>
-                    <p className="font-mono text-white font-semibold">{pair.liquidity}</p>
+                    >
+                      {pair.priceChange24h > 0 ? "+" : ""}
+                      {pair.priceChange24h}%
+                    </Badge>
                   </div>
 
                   {/* Market Cap */}
-                  <div className="space-y-1">
-                    <div className="flex items-center gap-2">
-                      <TrendingUp className="h-4 w-4 text-cyan-400" />
-                      <p className="text-xs text-gray-400">Market Cap</p>
-                    </div>
-                    <p className="font-mono text-white font-semibold">{pair.marketCap}</p>
+                  <div>
+                    <p className="text-xs text-gray-400">Market Cap</p>
+                    <p className="font-mono text-white font-semibold text-sm">{pair.marketCap}</p>
                   </div>
 
-                  {/* Transactions */}
-                  <div className="space-y-1">
-                    <p className="text-xs text-gray-400">Txns 24h</p>
-                    <div className="flex items-center gap-2 text-sm">
-                      <span className="text-emerald-400 font-bold">{pair.txns24h.buys}B</span>
-                      <span className="text-gray-500">/</span>
-                      <span className="text-red-400 font-bold">{pair.txns24h.sells}S</span>
-                    </div>
+                  {/* Volume */}
+                  <div>
+                    <p className="text-xs text-gray-400">Volume 24h</p>
+                    <p className="font-mono text-white font-semibold text-sm">{pair.volume24h}</p>
                   </div>
-                </div>
 
-                {/* Action Buttons */}
-                <div className="flex gap-2 mt-4">
-                  <Link href={`/token/${pair.id}`} className="flex-1">
+                  {/* Liquidity */}
+                  <div>
+                    <p className="text-xs text-gray-400">Liquidity</p>
+                    <p className="font-mono text-white font-semibold text-sm">{pair.liquidity}</p>
+                  </div>
+
+                  {/* Actions */}
+                  <div className="flex gap-1">
+                    <Link href={`/token/${pair.id}`}>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/10 h-7 px-2"
+                      >
+                        <ExternalLink className="h-3 w-3" />
+                      </Button>
+                    </Link>
                     <Button
                       variant="outline"
-                      className="w-full border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/10"
                       size="sm"
+                      className="border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/10 h-7 px-3 text-xs"
                     >
-                      <ExternalLink className="h-4 w-4 mr-2" />
-                      View Details
+                      Trade
                     </Button>
-                  </Link>
-                  <Button
-                    variant="outline"
-                    className="flex-1 border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/10"
-                    size="sm"
-                  >
-                    Trade
-                  </Button>
+                  </div>
+                </div>
+
+                {/* Mobile Layout */}
+                <div className="md:hidden space-y-3">
+                  {/* Header Row */}
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-7 w-7"
+                        onClick={() => toggleWatchlist(pair.id)}
+                      >
+                        <Star
+                          className={`h-3.5 w-3.5 ${
+                            watchlist.has(pair.id)
+                              ? "fill-yellow-500 text-yellow-500"
+                              : "text-gray-400"
+                          }`}
+                        />
+                      </Button>
+                      <div>
+                        <p className="font-bold text-white text-sm">{pair.name}</p>
+                        <p className="text-xs text-gray-500">{pair.launchDate}</p>
+                      </div>
+                    </div>
+                    <Badge
+                      variant={pair.priceChange24h > 0 ? "default" : "destructive"}
+                      className={`${
+                        pair.priceChange24h > 0
+                          ? "bg-emerald-500/20 text-emerald-400 border-emerald-500/30 font-bold"
+                          : "bg-red-500/20 text-red-400 border-red-500/30 font-bold"
+                      }`}
+                    >
+                      {pair.priceChange24h > 0 ? "+" : ""}
+                      {pair.priceChange24h}%
+                    </Badge>
+                  </div>
+
+                  {/* Stats Grid */}
+                  <div className="grid grid-cols-2 gap-2 text-xs">
+                    <div>
+                      <p className="text-gray-400">Price</p>
+                      <p className="font-mono text-white font-semibold">{pair.price}</p>
+                    </div>
+                    <div>
+                      <p className="text-gray-400">Market Cap</p>
+                      <p className="font-mono text-white font-semibold">{pair.marketCap}</p>
+                    </div>
+                    <div>
+                      <p className="text-gray-400">Volume 24h</p>
+                      <p className="font-mono text-white font-semibold">{pair.volume24h}</p>
+                    </div>
+                    <div>
+                      <p className="text-gray-400">Liquidity</p>
+                      <p className="font-mono text-white font-semibold">{pair.liquidity}</p>
+                    </div>
+                  </div>
+
+                  {/* Actions */}
+                  <div className="flex gap-2">
+                    <Link href={`/token/${pair.id}`} className="flex-1">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="w-full border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/10"
+                      >
+                        <ExternalLink className="h-3 w-3 mr-1" />
+                        Details
+                      </Button>
+                    </Link>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="flex-1 border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/10"
+                    >
+                      Trade
+                    </Button>
+                  </div>
                 </div>
               </div>
-            )}
+            ))}
           </div>
-        ))}
-      </div>
 
-      {/* Load More Button */}
-      {hasMore && (
-        <div className="p-4 border-t border-cyan-500/20">
-          <Button
-            variant="outline"
-            className="w-full border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/10 hover:border-cyan-400/50 font-semibold"
-            onClick={loadMore}
-          >
-            Load More Pairs ({allPairs.length - displayCount} remaining) 👇
-          </Button>
-        </div>
+          {/* Load More Button */}
+          {hasMore && (
+            <div className="p-4 border-t border-cyan-500/20">
+              <Button
+                variant="outline"
+                className="w-full border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/10 hover:border-cyan-400/50 font-semibold"
+                onClick={loadMore}
+              >
+                Load More Pairs ({allPairs.length - displayCount} remaining) 👇
+              </Button>
+            </div>
+          )}
+        </>
       )}
     </Card>
   );
