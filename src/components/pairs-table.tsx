@@ -254,10 +254,10 @@ export function PairsTable() {
   };
 
   return (
-    <Card className="w-full border-cyan-500/20 bg-black/80 overflow-hidden flex flex-col max-h-[700px]">
+    <Card className="w-full border-cyan-500/20 bg-black/80 overflow-hidden">
       {/* Header - Collapsible */}
       <div
-        className="p-3 border-b border-cyan-500/20 cursor-pointer hover:bg-cyan-500/5 transition-colors flex-shrink-0"
+        className="p-3 border-b border-cyan-500/20 cursor-pointer hover:bg-cyan-500/5 transition-colors"
         onClick={() => setIsTableVisible(!isTableVisible)}
       >
         <div className="flex items-center justify-between">
@@ -284,12 +284,10 @@ export function PairsTable() {
 
       {/* Table Content - Scrollable */}
       {isTableVisible && (
-        <div className="flex-1 overflow-hidden">
-          {/* Scrollable Table Wrapper */}
-          <div className="h-full overflow-x-auto overflow-y-auto">
-            <table className="w-full min-w-max">
-              {/* Table Header - Sticky */}
-              <thead className="sticky top-0 z-10 border-b border-cyan-500/20 bg-black/95">
+        <div className="overflow-x-auto overflow-y-auto max-h-[600px]">
+          <table className="w-full min-w-max">
+            {/* Table Header - Sticky */}
+            <thead className="sticky top-0 z-10 border-b border-cyan-500/20 bg-black/95">
                   <tr>
                     <th className="px-3 py-2 text-left text-xs font-semibold text-gray-400 whitespace-nowrap">★</th>
                     <th className="px-3 py-2 text-left text-xs font-semibold text-gray-400 whitespace-nowrap">Pair</th>
@@ -406,9 +404,8 @@ export function PairsTable() {
                     </td>
                   </tr>
                 ))}
-            </tbody>
-            </table>
-          </div>
+          </tbody>
+          </table>
         </div>
       )}
     </Card>
