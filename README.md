@@ -20,7 +20,6 @@ A professional cryptocurrency tracking and trading platform built with Next.js 1
 - **UI Components**: shadcn/ui
 - **Theme**: next-themes
 - **Icons**: Lucide React
-- **Database**: Amazon RDS (PostgreSQL)
 - **Hosting**: Vercel
 
 ## Project Structure
@@ -77,7 +76,7 @@ pnpm install
 
 3. Create environment variables:
 ```bash
-cp .env.example .env.local
+cp .env.example .env
 ```
 
 4. Run the development server:
@@ -105,7 +104,7 @@ pnpm start
 
 ### Environment Variables
 
-See `.env.example` for required environment variables.
+See `.env.example` for optional configuration such as API keys or a WalletConnect project ID.
 
 ## API Integration
 
@@ -113,7 +112,7 @@ The app currently uses mock data. To integrate real data:
 
 1. **DexScreener API**: Update `src/app/api/pairs/route.ts`
 2. **CoinGecko API**: Add endpoints for additional market data
-3. **Custom Backend**: Connect to your Amazon RDS database
+3. **Custom Backend**: Wire up your own services for authentication or affiliate tracking
 
 Example API integration:
 
@@ -124,12 +123,6 @@ const response = await fetch(
 );
 const data = await response.json();
 ```
-
-## Database Setup (Amazon RDS)
-
-1. Create a PostgreSQL instance on Amazon RDS
-2. Update `DATABASE_URL` in `.env.local`
-3. Run migrations (if using Prisma or similar ORM)
 
 ## Customization
 
@@ -163,8 +156,7 @@ export const SUPPORTED_CHAINS: Chain[] = [
 ## Features Roadmap
 
 - [ ] Real-time price updates via WebSocket
-- [ ] User authentication and profiles
-- [ ] Portfolio tracking
+- [ ] Wallet balance + portfolio tracking
 - [ ] Price alerts
 - [ ] Advanced charting tools
 - [ ] Social trading features

@@ -8,27 +8,21 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Search, Settings, Wallet, Moon, Sun, ChevronDown, Menu, X, BarChart3, Bell as BellIcon, User } from "lucide-react";
+import { Search, Settings, Moon, Sun, ChevronDown, Menu, X, BarChart3, User } from "lucide-react";
 import { useChain } from "@/hooks/use-chain";
 import { SUPPORTED_CHAINS } from "@/config/chains";
 import { useTheme } from "next-themes";
 import { TokenSearch } from "@/components/search/token-search";
 import { NotificationCenter } from "@/components/notifications/notification-center";
+import { WalletLoginModal } from "@/components/wallet-login-modal";
 
 export function Header() {
   const { selectedChain, setSelectedChain } = useChain();
   const { theme, setTheme } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isWalletConnected, setIsWalletConnected] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
-
-  const handleConnectWallet = () => {
-    // Wallet connection logic will be implemented here
-    setIsWalletConnected(!isWalletConnected);
-  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -36,8 +30,8 @@ export function Header() {
         <div className="flex h-14 items-center justify-between">
           {/* Logo */}
           <Link href="/app" className="flex items-center space-x-2">
-            <div className="font-bold text-lg bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
-              CryptoTrack
+            <div className="font-bold text-lg bg-gradient-to-r from-cyan-400 to-cyan-300 bg-clip-text text-transparent">
+              CryptoTrack ⚡
             </div>
           </Link>
 
@@ -92,13 +86,6 @@ export function Header() {
                 Portfolio
               </Button>
             </Link>
-            <Link href="/alerts">
-              <Button variant="ghost" size="sm" className="gap-2">
-                <BellIcon className="h-4 w-4" />
-                Alerts
-              </Button>
-            </Link>
-
             {/* Notifications */}
             <NotificationCenter />
 
@@ -127,18 +114,10 @@ export function Header() {
                     Settings
                   </Link>
                 </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem className="cursor-pointer">
-                  Disconnect Wallet
-                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
 
-            {/* Wallet Connect */}
-            <Button onClick={handleConnectWallet} className="gap-2">
-              <Wallet className="h-4 w-4" />
-              {isWalletConnected ? "0x1234...5678" : "Connect Wallet"}
-            </Button>
+            <WalletLoginModal />
           </div>
 
           {/* Mobile Menu Button */}
@@ -209,10 +188,7 @@ export function Header() {
               </Button>
             </div>
 
-            <Button onClick={handleConnectWallet} className="w-full gap-2">
-              <Wallet className="h-4 w-4" />
-              {isWalletConnected ? "0x1234...5678" : "Connect Wallet"}
-            </Button>
+            <WalletLoginModal />
           </div>
         )}
       </div>
