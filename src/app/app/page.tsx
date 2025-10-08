@@ -5,11 +5,11 @@ import { PairsTable } from "@/components/pairs-table";
 export default function AppPage() {
   return (
     <AppClientWrapper>
-      <div className="space-y-4">
-        {/* Ad Banner */}
+      <div className="w-full space-y-4">
+        {/* Ad Banner - 100% WIDTH */}
         <Banner />
 
-        {/* Main Content - Client Component */}
+        {/* Main Content - 100% WIDTH - ONLY TABLE SCROLLS */}
         <PairsTable />
       </div>
     </AppClientWrapper>

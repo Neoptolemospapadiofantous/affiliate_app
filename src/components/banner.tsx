@@ -6,7 +6,7 @@ import { Sparkles, ArrowRight } from "lucide-react";
 
 export function Banner() {
   return (
-    <Card className="p-4 bg-black/80 border-cyan-500/30">
+    <Card className="w-full p-4 bg-black/80 border-cyan-500/30">
       <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
         <div className="flex items-center gap-3">
           <div className="p-2.5 rounded-xl bg-gradient-to-br from-cyan-500 to-cyan-600">

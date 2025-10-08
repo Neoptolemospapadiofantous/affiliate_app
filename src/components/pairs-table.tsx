@@ -254,10 +254,9 @@ export function PairsTable() {
   };
 
   return (
-    <Card className="w-full border-cyan-500/20 bg-black/80 overflow-x-hidden">
-      {/* Header - Collapsible */}
-      <div
-        className="p-3 border-b border-cyan-500/20 cursor-pointer hover:bg-cyan-500/5 transition-colors"
+    <Card className="w-full border-cyan-500/20 bg-black/80">
+      {/* Header - Collapsible - 100% WIDTH */}
+      <div className="w-full p-3 border-b border-cyan-500/20 cursor-pointer hover:bg-cyan-500/5 transition-colors"
         onClick={() => setIsTableVisible(!isTableVisible)}
       >
         <div className="flex items-center justify-between">
@@ -282,11 +281,10 @@ export function PairsTable() {
         </div>
       </div>
 
-      {/* Table Content - Only Table Scrolls Horizontally */}
+      {/* Table Wrapper - 100% WIDTH - ONLY TABLE SCROLLS */}
       {isTableVisible && (
-        <div className="w-full">
-          <div className="overflow-x-auto overflow-y-auto max-h-[600px]" style={{ WebkitOverflowScrolling: 'touch' }}>
-            <table className="w-full min-w-max">
+        <div className="w-full overflow-x-auto overflow-y-auto max-h-[600px]" style={{ WebkitOverflowScrolling: 'touch' }}>
+          <table className="w-full min-w-max">
             {/* Table Header - Sticky */}
             <thead className="sticky top-0 z-10 border-b border-cyan-500/20 bg-black/95">
                   <tr>
@@ -406,8 +404,7 @@ export function PairsTable() {
                   </tr>
                 ))}
           </tbody>
-            </table>
-          </div>
+          </table>
         </div>
       )}
     </Card>
