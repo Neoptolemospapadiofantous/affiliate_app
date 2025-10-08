@@ -233,20 +233,15 @@ const allPairs = [
   },
 ];
 
-const PAIRS_PER_PAGE = 10;
+const PAIRS_PER_PAGE = 20;
 
 export function PairsTable() {
   const { selectedChain } = useChain();
   const [isTableVisible, setIsTableVisible] = useState(true);
-  const [displayCount, setDisplayCount] = useState(PAIRS_PER_PAGE);
   const [watchlist, setWatchlist] = useState<Set<string>>(new Set());
 
-  const pairs = allPairs.slice(0, displayCount);
-  const hasMore = displayCount < allPairs.length;
-
-  const loadMore = () => {
-    setDisplayCount(prev => Math.min(prev + PAIRS_PER_PAGE, allPairs.length));
-  };
+  // Show all pairs - vertical scroll instead of pagination
+  const pairs = allPairs;
 
   const toggleWatchlist = (pairId: string) => {
     const newWatchlist = new Set(watchlist);
@@ -287,13 +282,13 @@ export function PairsTable() {
         </div>
       </div>
 
-      {/* Table Content - Horizontal Scroll */}
+      {/* Table Content - Vertical & Horizontal Scroll */}
       {isTableVisible && (
         <>
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto overflow-y-auto max-h-[600px]">
             <table className="w-full min-w-max">
-              {/* Table Header */}
-              <thead className="border-b border-cyan-500/20 bg-cyan-500/5">
+              {/* Table Header - Sticky */}
+              <thead className="sticky top-0 z-10 border-b border-cyan-500/20 bg-black/95">
                 <tr>
                   <th className="px-3 py-2 text-left text-xs font-semibold text-gray-400 whitespace-nowrap">★</th>
                   <th className="px-3 py-2 text-left text-xs font-semibold text-gray-400 whitespace-nowrap">Pair</th>
@@ -413,19 +408,6 @@ export function PairsTable() {
               </tbody>
             </table>
           </div>
-
-          {/* Load More Button */}
-          {hasMore && (
-            <div className="p-4 border-t border-cyan-500/20">
-              <Button
-                variant="outline"
-                className="w-full border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/10 hover:border-cyan-400/50 font-semibold"
-                onClick={loadMore}
-              >
-                Load More Pairs ({allPairs.length - displayCount} remaining) 👇
-              </Button>
-            </div>
-          )}
         </>
       )}
     </Card>
