@@ -39,17 +39,17 @@ export function MarketOverview() {
       {marketStats.map((stat, index) => {
         const Icon = stat.icon;
         return (
-          <Card key={index} className="p-3">
+          <Card key={index} className="p-3 bg-black/80 border-cyan-500/20">
             <div className="flex items-start justify-between">
               <div className="flex-1">
-                <p className="text-xs text-muted-foreground mb-0.5">{stat.label}</p>
-                <p className="text-xl font-bold">{stat.value}</p>
+                <p className="text-xs text-gray-400 mb-0.5">{stat.label}</p>
+                <p className="text-xl font-bold text-white">{stat.value}</p>
                 <Badge
                   variant={stat.positive ? "default" : "destructive"}
                   className={`mt-2 ${
                     stat.positive
-                      ? "bg-green-500/10 text-green-500 hover:bg-green-500/20"
-                      : "bg-red-500/10 text-red-500 hover:bg-red-500/20"
+                      ? "bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500/30 border-emerald-500/30"
+                      : "bg-red-500/20 text-red-400 hover:bg-red-500/30 border-red-500/30"
                   }`}
                 >
                   {stat.change}
@@ -57,12 +57,12 @@ export function MarketOverview() {
               </div>
               <div
                 className={`p-1.5 rounded-lg ${
-                  stat.positive ? "bg-green-500/10" : "bg-red-500/10"
+                  stat.positive ? "bg-emerald-500/20" : "bg-red-500/20"
                 }`}
               >
                 <Icon
                   className={`h-4 w-4 ${
-                    stat.positive ? "text-green-500" : "text-red-500"
+                    stat.positive ? "text-emerald-400" : "text-red-400"
                   }`}
                 />
               </div>

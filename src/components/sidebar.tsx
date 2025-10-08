@@ -70,43 +70,43 @@ export function Sidebar() {
   return (
     <div className="w-full space-y-2">
       {/* Logo */}
-      <Link href="/app" className="block px-2 py-3">
-        <div className="font-bold text-base bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
-          CryptoTrack
+      <Link href="/app" className="block px-2 py-3 bg-black/80 rounded-lg border border-cyan-500/30 hover:border-cyan-400/50 transition-colors">
+        <div className="font-bold text-base bg-gradient-to-r from-cyan-400 to-cyan-300 bg-clip-text text-transparent">
+          CryptoTrack ⚡
         </div>
-        <p className="text-[10px] text-muted-foreground mt-0.5">
+        <p className="text-[10px] text-gray-400 mt-0.5">
           Affiliate Trading Platform
         </p>
       </Link>
 
       {/* Trending Pairs */}
-      <Card className="p-2">
+      <Card className="p-2 border-cyan-500/20 bg-black/80">
         <div className="flex items-center gap-1.5 mb-2">
-          <Flame className="h-3.5 w-3.5 text-orange-500" />
-          <h3 className="font-semibold text-sm">Trending</h3>
+          <Flame className="h-3.5 w-3.5 text-cyan-400" />
+          <h3 className="font-semibold text-sm text-white">Trending 🔥</h3>
         </div>
         <ScrollArea className="h-[240px]">
           <div className="space-y-1.5">
             {trendingPairs.map((pair, index) => (
               <div
                 key={pair.id}
-                className="flex items-center justify-between p-1.5 rounded hover:bg-muted/50 cursor-pointer transition-colors"
+                className="flex items-center justify-between p-1.5 rounded hover:bg-cyan-500/10 cursor-pointer transition-colors border border-transparent hover:border-cyan-500/20"
               >
                 <div className="flex items-center gap-1.5">
-                  <span className="text-[10px] text-muted-foreground w-3">
+                  <span className="text-[10px] text-gray-500 w-3">
                     {index + 1}
                   </span>
                   <span className="text-sm">{pair.icon}</span>
                   <div>
-                    <p className="font-medium text-xs">{pair.name}</p>
-                    <p className="text-[10px] text-muted-foreground">
+                    <p className="font-medium text-xs text-white">{pair.name}</p>
+                    <p className="text-[10px] text-gray-400">
                       Vol: {pair.volume}
                     </p>
                   </div>
                 </div>
                 <Badge
                   variant={pair.priceChange > 0 ? "default" : "destructive"}
-                  className="bg-green-500/10 text-green-500 hover:bg-green-500/20 text-[10px] px-1 py-0"
+                  className="bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500/30 border-emerald-500/30 text-[10px] px-1 py-0 font-bold"
                 >
                   +{pair.priceChange}%
                 </Badge>
@@ -117,44 +117,44 @@ export function Sidebar() {
       </Card>
 
       {/* Hot Pairs */}
-      <Card className="p-2">
+      <Card className="p-2 border-cyan-500/20 bg-black/80">
         <div className="flex items-center gap-1.5 mb-2">
-          <TrendingUp className="h-3.5 w-3.5 text-blue-500" />
-          <h3 className="font-semibold text-sm">Hot Pairs</h3>
+          <TrendingUp className="h-3.5 w-3.5 text-cyan-400" />
+          <h3 className="font-semibold text-sm text-white">Hot Pairs 🚀</h3>
         </div>
         <div className="space-y-1">
-          <div className="flex justify-between items-center p-1.5 rounded hover:bg-muted/50 cursor-pointer transition-colors">
-            <span className="text-xs font-medium">🔥 Top Gainers</span>
-            <Badge variant="outline" className="text-[10px] px-1.5 py-0">24</Badge>
+          <div className="flex justify-between items-center p-1.5 rounded hover:bg-cyan-500/10 cursor-pointer transition-colors border border-transparent hover:border-cyan-500/20">
+            <span className="text-xs font-medium text-white">🔥 Top Gainers</span>
+            <Badge variant="outline" className="text-[10px] px-1.5 py-0 border-cyan-500/30 text-cyan-400">24</Badge>
           </div>
-          <div className="flex justify-between items-center p-1.5 rounded hover:bg-muted/50 cursor-pointer transition-colors">
-            <span className="text-xs font-medium">💎 High Volume</span>
-            <Badge variant="outline" className="text-[10px] px-1.5 py-0">18</Badge>
+          <div className="flex justify-between items-center p-1.5 rounded hover:bg-cyan-500/10 cursor-pointer transition-colors border border-transparent hover:border-cyan-500/20">
+            <span className="text-xs font-medium text-white">💎 High Volume</span>
+            <Badge variant="outline" className="text-[10px] px-1.5 py-0 border-cyan-500/30 text-cyan-400">18</Badge>
           </div>
-          <div className="flex justify-between items-center p-1.5 rounded hover:bg-muted/50 cursor-pointer transition-colors">
-            <span className="text-xs font-medium">⚡ Most Active</span>
-            <Badge variant="outline" className="text-[10px] px-1.5 py-0">32</Badge>
+          <div className="flex justify-between items-center p-1.5 rounded hover:bg-cyan-500/10 cursor-pointer transition-colors border border-transparent hover:border-cyan-500/20">
+            <span className="text-xs font-medium text-white">⚡ Most Active</span>
+            <Badge variant="outline" className="text-[10px] px-1.5 py-0 border-cyan-500/30 text-cyan-400">32</Badge>
           </div>
         </div>
       </Card>
 
       {/* New Pairs */}
-      <Card className="p-2">
+      <Card className="p-2 border-cyan-500/20 bg-black/80">
         <div className="flex items-center gap-1.5 mb-2">
-          <Clock className="h-3.5 w-3.5 text-purple-500" />
-          <h3 className="font-semibold text-sm">New Pairs</h3>
+          <Clock className="h-3.5 w-3.5 text-cyan-400" />
+          <h3 className="font-semibold text-sm text-white">New Pairs ✨</h3>
         </div>
         <div className="space-y-1.5">
           {newPairs.map((pair) => (
             <div
               key={pair.id}
-              className="flex items-center justify-between p-1.5 rounded hover:bg-muted/50 cursor-pointer transition-colors"
+              className="flex items-center justify-between p-1.5 rounded hover:bg-cyan-500/10 cursor-pointer transition-colors border border-transparent hover:border-cyan-500/20"
             >
               <div>
-                <p className="font-medium text-xs">{pair.name}</p>
-                <p className="text-[10px] text-muted-foreground">{pair.age}</p>
+                <p className="font-medium text-xs text-white">{pair.name}</p>
+                <p className="text-[10px] text-gray-400">{pair.age}</p>
               </div>
-              <Badge variant="outline" className="text-[10px] px-1.5 py-0">
+              <Badge variant="outline" className="text-[10px] px-1.5 py-0 border-cyan-500/30 text-cyan-400">
                 {pair.liquidity}
               </Badge>
             </div>
