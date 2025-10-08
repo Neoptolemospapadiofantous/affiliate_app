@@ -282,26 +282,28 @@ export function PairsTable() {
         </div>
       </div>
 
-      {/* Table Content - Vertical & Horizontal Scroll */}
+      {/* Table Content - Horizontal Scroll */}
       {isTableVisible && (
         <>
-          <div className="overflow-x-auto overflow-y-auto max-h-[600px]">
-            <table className="w-full min-w-max">
-              {/* Table Header - Sticky */}
-              <thead className="sticky top-0 z-10 border-b border-cyan-500/20 bg-black/95">
-                <tr>
-                  <th className="px-3 py-2 text-left text-xs font-semibold text-gray-400 whitespace-nowrap">★</th>
-                  <th className="px-3 py-2 text-left text-xs font-semibold text-gray-400 whitespace-nowrap">Pair</th>
-                  <th className="px-3 py-2 text-left text-xs font-semibold text-gray-400 whitespace-nowrap">Launch Date</th>
-                  <th className="px-3 py-2 text-right text-xs font-semibold text-gray-400 whitespace-nowrap">Price</th>
-                  <th className="px-3 py-2 text-center text-xs font-semibold text-gray-400 whitespace-nowrap">24h %</th>
-                  <th className="px-3 py-2 text-right text-xs font-semibold text-gray-400 whitespace-nowrap">Market Cap</th>
-                  <th className="px-3 py-2 text-right text-xs font-semibold text-gray-400 whitespace-nowrap">Volume 24h</th>
-                  <th className="px-3 py-2 text-right text-xs font-semibold text-gray-400 whitespace-nowrap">Liquidity</th>
-                  <th className="px-3 py-2 text-center text-xs font-semibold text-gray-400 whitespace-nowrap">Txns 24h</th>
-                  <th className="px-3 py-2 text-center text-xs font-semibold text-gray-400 whitespace-nowrap">Actions</th>
-                </tr>
-              </thead>
+          {/* Scrollable Table Wrapper */}
+          <div className="overflow-x-auto">
+            <div className="max-h-[600px] overflow-y-auto">
+              <table className="w-full min-w-max">
+                {/* Table Header - Sticky */}
+                <thead className="sticky top-0 z-10 border-b border-cyan-500/20 bg-black/95">
+                  <tr>
+                    <th className="px-3 py-2 text-left text-xs font-semibold text-gray-400 whitespace-nowrap">★</th>
+                    <th className="px-3 py-2 text-left text-xs font-semibold text-gray-400 whitespace-nowrap">Pair</th>
+                    <th className="px-3 py-2 text-left text-xs font-semibold text-gray-400 whitespace-nowrap">Launch Date</th>
+                    <th className="px-3 py-2 text-right text-xs font-semibold text-gray-400 whitespace-nowrap">Price</th>
+                    <th className="px-3 py-2 text-center text-xs font-semibold text-gray-400 whitespace-nowrap">24h %</th>
+                    <th className="px-3 py-2 text-right text-xs font-semibold text-gray-400 whitespace-nowrap">Market Cap</th>
+                    <th className="px-3 py-2 text-right text-xs font-semibold text-gray-400 whitespace-nowrap">Volume 24h</th>
+                    <th className="px-3 py-2 text-right text-xs font-semibold text-gray-400 whitespace-nowrap">Liquidity</th>
+                    <th className="px-3 py-2 text-center text-xs font-semibold text-gray-400 whitespace-nowrap">Txns 24h</th>
+                    <th className="px-3 py-2 text-center text-xs font-semibold text-gray-400 whitespace-nowrap">Actions</th>
+                  </tr>
+                </thead>
 
               {/* Table Body */}
               <tbody className="divide-y divide-cyan-500/10">
@@ -406,7 +408,8 @@ export function PairsTable() {
                   </tr>
                 ))}
               </tbody>
-            </table>
+              </table>
+            </div>
           </div>
         </>
       )}
