@@ -3,16 +3,8 @@
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { ArrowUpDown, ExternalLink, Star } from "lucide-react";
+import { ArrowUpDown, ExternalLink, Star, ChevronDown, TrendingUp, Activity, DollarSign } from "lucide-react";
 import { useChain } from "@/hooks/use-chain";
 import { PairFilters } from "@/components/filters/pair-filters";
 import Link from "next/link";
@@ -219,106 +211,6 @@ const allPairs = [
     txns24h: { buys: 456, sells: 378 },
     marketCap: "$23.5M",
   },
-  {
-    id: "21",
-    name: "IMX/WETH",
-    price: "$1.456",
-    priceChange24h: 5.8,
-    volume24h: "$2.8M",
-    liquidity: "$7.3M",
-    txns24h: { buys: 212, sells: 189 },
-    marketCap: "$13.9M",
-  },
-  {
-    id: "22",
-    name: "APE/USDC",
-    price: "$1.234",
-    priceChange24h: -12.4,
-    volume24h: "$5.9M",
-    liquidity: "$14.2M",
-    txns24h: { buys: 345, sells: 423 },
-    marketCap: "$28.7M",
-  },
-  {
-    id: "23",
-    name: "GRT/WETH",
-    price: "$0.167",
-    priceChange24h: 9.3,
-    volume24h: "$1.6M",
-    liquidity: "$4.9M",
-    txns24h: { buys: 178, sells: 145 },
-    marketCap: "$8.4M",
-  },
-  {
-    id: "24",
-    name: "FTM/USDT",
-    price: "$0.423",
-    priceChange24h: -5.6,
-    volume24h: "$2.4M",
-    liquidity: "$6.7M",
-    txns24h: { buys: 234, sells: 267 },
-    marketCap: "$11.8M",
-  },
-  {
-    id: "25",
-    name: "SAND/WETH",
-    price: "$0.345",
-    priceChange24h: 14.2,
-    volume24h: "$3.7M",
-    liquidity: "$9.8M",
-    txns24h: { buys: 298, sells: 245 },
-    marketCap: "$19.6M",
-  },
-  {
-    id: "26",
-    name: "MANA/USDC",
-    price: "$0.456",
-    priceChange24h: -8.9,
-    volume24h: "$2.1M",
-    liquidity: "$5.8M",
-    txns24h: { buys: 167, sells: 198 },
-    marketCap: "$9.3M",
-  },
-  {
-    id: "27",
-    name: "CHZ/WETH",
-    price: "$0.089",
-    priceChange24h: 18.7,
-    volume24h: "$1.9M",
-    liquidity: "$4.6M",
-    txns24h: { buys: 223, sells: 178 },
-    marketCap: "$7.2M",
-  },
-  {
-    id: "28",
-    name: "AXS/USDT",
-    price: "$6.234",
-    priceChange24h: -11.3,
-    volume24h: "$3.5M",
-    liquidity: "$8.9M",
-    txns24h: { buys: 189, sells: 234 },
-    marketCap: "$15.7M",
-  },
-  {
-    id: "29",
-    name: "BLUR/WETH",
-    price: "$0.289",
-    priceChange24h: 25.4,
-    volume24h: "$4.8M",
-    liquidity: "$12.3M",
-    txns24h: { buys: 378, sells: 298 },
-    marketCap: "$21.4M",
-  },
-  {
-    id: "30",
-    name: "LRC/USDC",
-    price: "$0.234",
-    priceChange24h: -6.7,
-    volume24h: "$1.3M",
-    liquidity: "$3.9M",
-    txns24h: { buys: 134, sells: 156 },
-    marketCap: "$5.8M",
-  },
 ];
 
 type SortKey = "name" | "price" | "priceChange24h" | "volume24h" | "liquidity";
@@ -328,8 +220,7 @@ const PAIRS_PER_PAGE = 10;
 export function PairsTable() {
   const { selectedChain } = useChain();
   const [displayCount, setDisplayCount] = useState(PAIRS_PER_PAGE);
-  const [sortKey, setSortKey] = useState<SortKey | null>(null);
-  const [sortDirection, setSortDirection] = useState<"asc" | "desc">("desc");
+  const [expandedRow, setExpandedRow] = useState<string | null>(null);
   const [watchlist, setWatchlist] = useState<Set<string>>(new Set());
 
   const pairs = allPairs.slice(0, displayCount);
@@ -339,13 +230,8 @@ export function PairsTable() {
     setDisplayCount(prev => Math.min(prev + PAIRS_PER_PAGE, allPairs.length));
   };
 
-  const handleSort = (key: SortKey) => {
-    if (sortKey === key) {
-      setSortDirection(sortDirection === "asc" ? "desc" : "asc");
-    } else {
-      setSortKey(key);
-      setSortDirection("desc");
-    }
+  const toggleRow = (pairId: string) => {
+    setExpandedRow(expandedRow === pairId ? null : pairId);
   };
 
   const toggleWatchlist = (pairId: string) => {
@@ -360,6 +246,7 @@ export function PairsTable() {
 
   return (
     <Card className="w-full border-cyan-500/20 bg-black/80">
+      {/* Header */}
       <div className="p-3 border-b border-cyan-500/20">
         <div className="flex items-center justify-between mb-3">
           <h2 className="text-lg font-bold text-white">
@@ -374,202 +261,128 @@ export function PairsTable() {
         </div>
       </div>
 
-      {/* Desktop Table */}
-      <div className="hidden md:block overflow-x-auto">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead className="w-[50px]"></TableHead>
-              <TableHead>
-                <Button
-                  variant="ghost"
-                  onClick={() => handleSort("name")}
-                  className="h-8 px-2"
-                >
-                  Pair
-                  <ArrowUpDown className="ml-2 h-4 w-4" />
-                </Button>
-              </TableHead>
-              <TableHead className="text-right">
-                <Button
-                  variant="ghost"
-                  onClick={() => handleSort("price")}
-                  className="h-8 px-2"
-                >
-                  Price
-                  <ArrowUpDown className="ml-2 h-4 w-4" />
-                </Button>
-              </TableHead>
-              <TableHead className="text-right">
-                <Button
-                  variant="ghost"
-                  onClick={() => handleSort("priceChange24h")}
-                  className="h-8 px-2"
-                >
-                  24h %
-                  <ArrowUpDown className="ml-2 h-4 w-4" />
-                </Button>
-              </TableHead>
-              <TableHead className="text-right">
-                <Button
-                  variant="ghost"
-                  onClick={() => handleSort("volume24h")}
-                  className="h-8 px-2"
-                >
-                  Volume 24h
-                  <ArrowUpDown className="ml-2 h-4 w-4" />
-                </Button>
-              </TableHead>
-              <TableHead className="text-right">
-                <Button
-                  variant="ghost"
-                  onClick={() => handleSort("liquidity")}
-                  className="h-8 px-2"
-                >
-                  Liquidity
-                  <ArrowUpDown className="ml-2 h-4 w-4" />
-                </Button>
-              </TableHead>
-              <TableHead className="text-center">Txns 24h</TableHead>
-              <TableHead className="text-right">Market Cap</TableHead>
-              <TableHead className="w-[50px]"></TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {pairs.map((pair) => (
-              <TableRow key={pair.id} className="hover:bg-cyan-500/10 cursor-pointer border-cyan-500/10">
-                <TableCell>
+      {/* Expandable Rows - Full Width */}
+      <div className="divide-y divide-cyan-500/10">
+        {pairs.map((pair) => (
+          <div key={pair.id} className="w-full">
+            {/* Collapsed Row - Click to expand */}
+            <div
+              onClick={() => toggleRow(pair.id)}
+              className="w-full p-4 hover:bg-cyan-500/5 cursor-pointer transition-colors"
+            >
+              <div className="flex items-center justify-between gap-4">
+                {/* Left: Pair Name & Price */}
+                <div className="flex items-center gap-3 flex-1 min-w-0">
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="h-8 w-8"
-                    onClick={() => toggleWatchlist(pair.id)}
+                    className="h-8 w-8 flex-shrink-0"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleWatchlist(pair.id);
+                    }}
                   >
                     <Star
                       className={`h-4 w-4 ${
                         watchlist.has(pair.id)
                           ? "fill-yellow-500 text-yellow-500"
-                          : "text-muted-foreground"
+                          : "text-gray-400"
                       }`}
                     />
                   </Button>
-                </TableCell>
-                <TableCell className="font-medium text-white">{pair.name}</TableCell>
-                <TableCell className="text-right font-mono text-sm text-gray-300">
-                  {pair.price}
-                </TableCell>
-                <TableCell className="text-right">
-                  <Badge
-                    variant={pair.priceChange24h > 0 ? "default" : "destructive"}
-                    className={
-                      pair.priceChange24h > 0
-                        ? "bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500/30 border-emerald-500/30 font-bold"
-                        : "bg-red-500/20 text-red-400 hover:bg-red-500/30 border-red-500/30 font-bold"
-                    }
-                  >
-                    {pair.priceChange24h > 0 ? "+" : ""}
-                    {pair.priceChange24h}%
-                  </Badge>
-                </TableCell>
-                <TableCell className="text-right font-mono text-sm text-gray-300">
-                  {pair.volume24h}
-                </TableCell>
-                <TableCell className="text-right font-mono text-sm text-gray-300">
-                  {pair.liquidity}
-                </TableCell>
-                <TableCell className="text-center">
-                  <div className="flex items-center justify-center gap-2 text-xs">
-                    <span className="text-emerald-400 font-bold">{pair.txns24h.buys}B</span>
-                    <span className="text-gray-500">/</span>
-                    <span className="text-red-400 font-bold">{pair.txns24h.sells}S</span>
+                  <div className="flex-1 min-w-0">
+                    <p className="font-bold text-white text-base truncate">{pair.name}</p>
+                    <p className="text-sm text-gray-400 font-mono">{pair.price}</p>
                   </div>
-                </TableCell>
-                <TableCell className="text-right font-mono text-sm text-gray-300">
-                  {pair.marketCap}
-                </TableCell>
-                <TableCell>
-                  <Link href={`/token/${pair.id}`}>
-                    <Button variant="ghost" size="icon" className="h-8 w-8">
-                      <ExternalLink className="h-4 w-4" />
+                </div>
+
+                {/* Center: 24h Change */}
+                <Badge
+                  variant={pair.priceChange24h > 0 ? "default" : "destructive"}
+                  className={`flex-shrink-0 ${
+                    pair.priceChange24h > 0
+                      ? "bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500/30 border-emerald-500/30 font-bold"
+                      : "bg-red-500/20 text-red-400 hover:bg-red-500/30 border-red-500/30 font-bold"
+                  }`}
+                >
+                  {pair.priceChange24h > 0 ? "+" : ""}
+                  {pair.priceChange24h}%
+                </Badge>
+
+                {/* Right: Expand Icon */}
+                <ChevronDown
+                  className={`h-5 w-5 text-cyan-400 transition-transform flex-shrink-0 ${
+                    expandedRow === pair.id ? "rotate-180" : ""
+                  }`}
+                />
+              </div>
+            </div>
+
+            {/* Expanded Details */}
+            {expandedRow === pair.id && (
+              <div className="w-full px-4 pb-4 bg-cyan-500/5 border-t border-cyan-500/10">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4">
+                  {/* Volume */}
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-2">
+                      <Activity className="h-4 w-4 text-cyan-400" />
+                      <p className="text-xs text-gray-400">Volume 24h</p>
+                    </div>
+                    <p className="font-mono text-white font-semibold">{pair.volume24h}</p>
+                  </div>
+
+                  {/* Liquidity */}
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-2">
+                      <DollarSign className="h-4 w-4 text-cyan-400" />
+                      <p className="text-xs text-gray-400">Liquidity</p>
+                    </div>
+                    <p className="font-mono text-white font-semibold">{pair.liquidity}</p>
+                  </div>
+
+                  {/* Market Cap */}
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-2">
+                      <TrendingUp className="h-4 w-4 text-cyan-400" />
+                      <p className="text-xs text-gray-400">Market Cap</p>
+                    </div>
+                    <p className="font-mono text-white font-semibold">{pair.marketCap}</p>
+                  </div>
+
+                  {/* Transactions */}
+                  <div className="space-y-1">
+                    <p className="text-xs text-gray-400">Txns 24h</p>
+                    <div className="flex items-center gap-2 text-sm">
+                      <span className="text-emerald-400 font-bold">{pair.txns24h.buys}B</span>
+                      <span className="text-gray-500">/</span>
+                      <span className="text-red-400 font-bold">{pair.txns24h.sells}S</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="flex gap-2 mt-4">
+                  <Link href={`/token/${pair.id}`} className="flex-1">
+                    <Button
+                      variant="outline"
+                      className="w-full border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/10"
+                      size="sm"
+                    >
+                      <ExternalLink className="h-4 w-4 mr-2" />
+                      View Details
                     </Button>
                   </Link>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </div>
-
-      {/* Mobile Cards */}
-      <div className="md:hidden p-4 space-y-4">
-        {pairs.map((pair) => (
-          <Card key={pair.id} className="p-4 space-y-3 bg-black/60 border-cyan-500/20">
-            <div className="flex items-start justify-between">
-              <div className="flex items-center gap-2">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="h-8 w-8"
-                  onClick={() => toggleWatchlist(pair.id)}
-                >
-                  <Star
-                    className={`h-4 w-4 ${
-                      watchlist.has(pair.id)
-                        ? "fill-yellow-500 text-yellow-500"
-                        : "text-gray-400"
-                    }`}
-                  />
-                </Button>
-                <div>
-                  <p className="font-semibold text-white">{pair.name}</p>
-                  <p className="text-sm font-mono text-gray-400">
-                    {pair.price}
-                  </p>
+                  <Button
+                    variant="outline"
+                    className="flex-1 border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/10"
+                    size="sm"
+                  >
+                    Trade
+                  </Button>
                 </div>
               </div>
-              <Badge
-                variant={pair.priceChange24h > 0 ? "default" : "destructive"}
-                className={
-                  pair.priceChange24h > 0
-                    ? "bg-emerald-500/20 text-emerald-400 border-emerald-500/30 font-bold"
-                    : "bg-red-500/20 text-red-400 border-red-500/30 font-bold"
-                }
-              >
-                {pair.priceChange24h > 0 ? "+" : ""}
-                {pair.priceChange24h}%
-              </Badge>
-            </div>
-
-            <div className="grid grid-cols-2 gap-3 text-sm">
-              <div>
-                <p className="text-gray-400 text-xs">Volume 24h</p>
-                <p className="font-mono text-white">{pair.volume24h}</p>
-              </div>
-              <div>
-                <p className="text-gray-400 text-xs">Liquidity</p>
-                <p className="font-mono text-white">{pair.liquidity}</p>
-              </div>
-              <div>
-                <p className="text-gray-400 text-xs">Txns 24h</p>
-                <p className="text-xs">
-                  <span className="text-emerald-400 font-bold">{pair.txns24h.buys}B</span>
-                  <span className="text-gray-500"> / </span>
-                  <span className="text-red-400 font-bold">{pair.txns24h.sells}S</span>
-                </p>
-              </div>
-              <div>
-                <p className="text-gray-400 text-xs">Market Cap</p>
-                <p className="font-mono text-white">{pair.marketCap}</p>
-              </div>
-            </div>
-
-            <Link href={`/token/${pair.id}`}>
-              <Button variant="outline" className="w-full border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/10" size="sm">
-                <ExternalLink className="h-4 w-4 mr-2" />
-                View Details
-              </Button>
-            </Link>
-          </Card>
+            )}
+          </div>
         ))}
       </div>
 
